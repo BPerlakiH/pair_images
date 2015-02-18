@@ -45,12 +45,13 @@ end
 #stitch the images in pairs
 tmpImages = Dir[tmpDir + "/*"]
 
-pair = tmpImages.pop(2)
-while pair != nil and 1 < tmpImages.length do
+# pair = tmpImages.pop(2)
+while 0 < tmpImages.length do
+	pair = [tmpImages.pop, tmpImages.pop]
 	puts pair[0] + " | " + pair[1] + "\n"
 	cmd = "convert " + pair[0] + " " + pair[1] + " +append " + outDir + File.basename(pair[0])
 	system cmd
-	pair = tmpImages.pop(2)
+	# pair = tmpImages.pop(2)
 end
 
 
