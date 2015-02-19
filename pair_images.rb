@@ -20,8 +20,8 @@ outDir = "paired/"
 images = Dir["./*"].reject{ |i| File.extname(i).downcase != ".jpg"}
 
 # verify the images are even
-if(images.length % 2 != 0)
-	puts "image count: " + images.length.to_s + " is not even"
+if(images.length < 2 or images.length % 2 != 0)
+	puts "image count: " + images.length.to_s + " is not even or less than 2"
 	exit
 end
 
@@ -44,15 +44,12 @@ end
 
 #stitch the images in pairs
 tmpImages = Dir[tmpDir + "/*"]
-
-# pair = tmpImages.pop(2)
-while 0 < tmpImages.length do
-	pair = [tmpImages.pop, tmpImages.pop]
+begin
+	pair = tmpImages.pop(2)
 	puts pair[0] + " | " + pair[1] + "\n"
 	cmd = "convert " + pair[0] + " " + pair[1] + " +append " + outDir + File.basename(pair[0])
 	system cmd
-	# pair = tmpImages.pop(2)
-end
+end while 0 < tmpImages.length
 
 
 # clean up the temp dir
